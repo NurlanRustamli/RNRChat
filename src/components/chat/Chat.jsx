@@ -42,11 +42,23 @@ const Chat = () => {
       setIsLoading(false);
       return;
     }
-
-    const unsub = onSnapshot(doc(db, "userchats", chatId), (doc) => {
-      setChat(doc.data());
-      setIsLoading(false);
-    });
+    const unsub = onSnapshot(
+        doc(db, "chats", chatId),
+        (docSnapshot) => {
+          if (docSnapshot.exists()) {
+            console.log("Document data:", docSnapshot.data());
+            setChat(docSnapshot.data());
+          } else {
+            console.log("No such document!");
+            setChat(null);
+          }
+          setIsLoading(false);
+        },
+        (error) => {
+          console.error("Error fetching document:", error);
+          setIsLoading(false);
+        }
+      );
 
     return () => unsub();
   }, [chatId]);
