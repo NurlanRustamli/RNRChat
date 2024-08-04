@@ -146,13 +146,19 @@ const Chat = () => {
           <img src={user?.avatar || "./avatar.png"} alt="" />
           <div className="texts">
             <span>{user?.username}</span>
-            <p>Lorem ipsum dolor, sit amet.</p>
+            <p>Karabakh is Azerbaijan!</p>
           </div>
         </div>
         <div className="icons">
           <img src="./phone.png" alt="" />
           <img src="./video.png" alt="" />
-          <img src="./info.png" alt="" />
+          <img src="./info.png" alt="" onClick={()=>{
+            const detailPage = document.querySelector(".detail")
+            const chatPage = document.querySelector(".chat")
+            detailPage.style.flex ="3"
+            detailPage.style.display ="block"
+            chatPage.style.display ="none"
+          }}/>
         </div>
       </div>
       <div className="center">
@@ -215,7 +221,7 @@ const Chat = () => {
           </div>
         </div>
         <button
-          className="sendButton"
+          className="sendBtn"
           onClick={handleSend}
           disabled={isCurrentUserBlocked || isReceiverBlocked}
         >
